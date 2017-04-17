@@ -1,6 +1,6 @@
 ## Exploring South Australia's Road Accidents Data
 
-# Demo
+## Demo
 
 Live demo is unavailable, but you can run the app from RStudio using the following code:
 
@@ -16,18 +16,24 @@ if(length(packagesToInstall)) install.packages(packagesToInstall)
 shiny::runGitHub('asheshwor/crashsa')
 ````
 
-# Screenshots
+## Screenshots
 
 ![app screenshot 1](img/img1.png)
 <small>Screenshot of app</small>
 
 ![app screenshot 2](img/img2.png)
 <small>Screenshot of app</small>
-# Data source
+
+## Data source
 
 The data from Department of Planning, Transport and Infrastructure was obtained from https://data.sa.gov.au/data/dataset/road-crashes-in-sa
 
 Bounding box for suburbs extracted from https://data.sa.gov.au/data/dataset/suburb-boundaries
+
+## To-do
+
+* display statistics of data being displayed
+* filter by type of incidents
 
 ## License:
 
