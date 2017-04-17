@@ -2,7 +2,19 @@
 
 # Demo
 
-Live demo is unavailable, but you can run the code from RStudio.
+Live demo is unavailable, but you can run the app from RStudio using the following code:
+
+```R
+## Install missing packages
+packagesRequired <- c("shiny", "maptools", "dplyr",
+                      "leaflet", "rgeos", "RColorBrewer",
+                      "data.table")
+packagesToInstall <- packagesRequired[!(packagesRequired %in%
+                                          installed.packages()[,"Package"])]
+if(length(packagesToInstall)) install.packages(packagesToInstall)
+## Run app from Github repo
+shiny::runGitHub('asheshwor/crashsa')
+````
 
 # Screenshots
 
