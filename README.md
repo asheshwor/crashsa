@@ -14,7 +14,7 @@ packagesToInstall <- packagesRequired[!(packagesRequired %in%
 if(length(packagesToInstall)) install.packages(packagesToInstall)
 ## Run app from Github repo
 shiny::runGitHub('asheshwor/crashsa')
-````
+```
 
 ## Screenshots
 
@@ -32,11 +32,11 @@ Bounding box for suburbs extracted from https://data.sa.gov.au/data/dataset/subu
 
 ## To-do
 
-* display statistics of data being displayed
+* statistics of data being displayed
 * filter by type of incidents
 
 ## License:
 
 Code distributed under the terms of the [MIT license] (https://github.com/asheshwor/crashsa/blob/master/LICENSE)
 
-See individual llicenses for external data/tools used if any.
+See individual licenses for external data/tools used if any.
