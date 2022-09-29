@@ -34,6 +34,8 @@ Bounding box for suburbs extracted from https://data.sa.gov.au/data/dataset/subu
 
 * statistics of data being displayed
 * filter by type of incidents
+* filter by year
+* Search feature
 
 ## License:
 

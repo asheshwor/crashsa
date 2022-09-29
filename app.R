@@ -8,7 +8,7 @@ library(RColorBrewer)
 # library(ggthemes)
 # library(rCharts)
 # library(highcharter)
-## read crash data
+## REACD CRASH DATA
 crash.dt <- as.data.table(read.csv("data/crashpoints.csv",
                                    colClasses = c("character",
                                                   rep("integer", 25),
