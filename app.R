@@ -8,6 +8,13 @@ library(RColorBrewer)
 # library(ggthemes)
 # library(rCharts)
 # library(highcharter)
+## PREPARE CRASH DATA
+# READ FOLDER
+all.files <- list.files(path="D:/github/csa/data/original/", pattern = ".csv")
+# THREE FIELS FOR EACH YEAR
+# Casualty
+# Crash
+# Units
 ## REACD CRASH DATA
 crash.dt <- as.data.table(read.csv("data/crashpoints.csv",
                                    colClasses = c("character",
