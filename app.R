@@ -9,12 +9,49 @@ library(RColorBrewer)
 # library(rCharts)
 # library(highcharter)
 ## PREPARE CRASH DATA
+# THE DATA WAS DOWNLOADED AND UNZIPPED AS INDIVIDUAL CSV VILES
 # READ FOLDER
-all.files <- list.files(path="D:/github/csa/data/original/", pattern = ".csv")
+path.files <- "D:/github/csa/data/original/"
+all.files <- list.files(path="D:/github/csa/data/original/",
+                        full.names = TRUE, pattern = ".csv")
+casualty.files <- list.files(path=path.files,
+                             full.names = TRUE, pattern = "Casualty.csv")
+crash.files <- list.files(path=path.files,
+                          full.names = TRUE, pattern = "Crash.csv")
+units.files <- list.files(path=path.files,
+                          full.names = TRUE, pattern = "Units.csv")
 # THREE FIELS FOR EACH YEAR
 # Casualty
 # Crash
 # Units
+# VERIFY HEADERS
+invisible(lapply(c(casualty.files, crash.files, units.files), function(xfile) {
+  print(xfile)
+  print(names(read.csv(xfile)))
+}))
+# CHECK LENGTHS
+invisible(lapply(c(casualty.files, crash.files, units.files), function(xfile) {
+  # print(xfile)
+  # nrow(read.csv(xfile))
+  cat(paste(xfile, nrow(read.csv(xfile)), "\n"))
+}))
+# COLLATE FILES
+casualty.data <- data.frame(do.call("rbind",
+                                    lapply(casualty.files,
+                                           function(xfile) {
+                                             read.csv(xfile)
+                                           })))
+units.data <- data.frame(do.call("rbind",
+                                    lapply(units.files,
+                                           function(xfile) {
+                                             read.csv(xfile)
+                                           })))
+crash.data <- data.frame(do.call("rbind",
+                                    lapply(crash.files,
+                                           function(xfile) {
+                                             read.csv(xfile)
+                                           })))
+
 ## REACD CRASH DATA
 crash.dt <- as.data.table(read.csv("data/crashpoints.csv",
                                    colClasses = c("character",
