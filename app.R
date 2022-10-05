@@ -4,6 +4,8 @@ require(dplyr)
 require(leaflet)
 library(data.table)
 library(RColorBrewer)
+library(rgdal)
+library(mapview)
 # library(ggplot2)
 # library(ggthemes)
 # library(rCharts)
@@ -51,6 +53,38 @@ crash.data <- data.frame(do.call("rbind",
                                            function(xfile) {
                                              read.csv(xfile)
                                            })))
+crash.data <- crash.data %>%
+  filter(!is.na(ACCLOC_X))
+#MAKE A LEAFLET MAP WITH AU PROJECTION
+# epsg8059 <- leafletCRS(
+#   crsClass = "L.Proj.CRS",
+#   code = "EPSG:8059",
+#   # proj4def = "+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs",
+#   proj4def = "+proj=lcc +lat_0=-32 +lon_0=135 +lat_1=-28 +lat_2=-36 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
+#   resolutions = 2^(16:7))
+# m <- leaflet(data = head(crash.data, 500), options = leafletOptions(crs = epsg8059)) %>%
+#   # addTiles() %>%
+#   setView(138.592609, -34.912760,  zoom = 12) %>%
+#   addCircleMarkers(~ACCLOC_X, ~ACCLOC_X)
+# m
+coordinates(crash.data) = c("ACCLOC_X", "ACCLOC_Y")
+proj4string(crash.data) <- CRS("+init=epsg:8059")
+# plot(head(crash.data,500)) #QUICK PLOT
+mapview(head(crash.data,500))
+wgs.crs <- CRS("+init=epsg:4326") #EPSG:4326
+crash.data <- spTransform(crash.data, wgs.crs)
+crash.data$lon <- crash.data@coords[,1]
+crash.data$lat <- crash.data@coords[,2]
+# plot(head(crash.data,500)) #QUICK PLOT
+mapview(head(crash.data,500))
+#NOW LEAFLET
+m <- leaflet(data = crash.data) %>%
+  addTiles() %>%
+  setView(138.592609, -34.912760,  zoom = 12) %>%
+  addCircleMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
+m
+## FIRST, LET'S CHECK THE CRASH DATA
+str(crash.data)
 
 ## REACD CRASH DATA
 crash.dt <- as.data.table(read.csv("data/crashpoints.csv",
