@@ -32,11 +32,21 @@ Bounding box for suburbs extracted from https://data.sa.gov.au/data/dataset/subu
 
 ## To-do
 
-* statistics of data being displayed
+* statistics of data being displayed - use raw data from 2011-2021 *done*
 * filter by type of incidents: type of accident, licence class, licence type, vehicle year, unit type, sex, age, unit movement from "Units" file
 * filter by number of casualties, casualty type, position in vehicle, injury extent, seatbelt, helmet from "Casualty" file.
 * add data for multiple years
 * Search feature
+
+
+## New UI
+
+Filter design based on full data.
+Years: Check boxes
+Crash type: Dropdown list
+Day or night: Radio button
+Position type: Dropdown list
+
 
 
 ## License:
