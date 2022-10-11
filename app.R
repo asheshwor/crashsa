@@ -54,7 +54,9 @@ crash.data <- data.frame(do.call("rbind",
                                              read.csv(xfile)
                                            })))
 crash.data <- crash.data %>%
-  filter(!is.na(ACCLOC_X))
+  filter(!is.na(ACCLOC_X)) %>% 
+  mutate(UNIQUE_LOC = as.character(UNIQUE_LOC))
+head(crash.data)
 #MAKE A LEAFLET MAP WITH AU PROJECTION
 # epsg8059 <- leafletCRS(
 #   crsClass = "L.Proj.CRS",
@@ -70,13 +72,14 @@ crash.data <- crash.data %>%
 coordinates(crash.data) = c("ACCLOC_X", "ACCLOC_Y")
 proj4string(crash.data) <- CRS("+init=epsg:8059")
 # plot(head(crash.data,500)) #QUICK PLOT
-mapview(head(crash.data,500))
+# mapview(head(crash.data,500))
 wgs.crs <- CRS("+init=epsg:4326") #EPSG:4326
 crash.data <- spTransform(crash.data, wgs.crs)
 crash.data$lon <- crash.data@coords[,1]
 crash.data$lat <- crash.data@coords[,2]
 # plot(head(crash.data,500)) #QUICK PLOT
-mapview(head(crash.data,500))
+# mapview(head(crash.data,500))
+
 #NOW LEAFLET
 m <- leaflet(data = crash.data) %>%
   addTiles() %>%
