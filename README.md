@@ -42,12 +42,10 @@ Bounding box for suburbs extracted from https://data.sa.gov.au/data/dataset/subu
 ## New UI
 
 Filter design based on full data.
-Years: Check boxes
+Years: Dropdown years from 2012 to 2021
 Crash type: Dropdown list
 Day or night: Radio button
 Position type: Dropdown list
-
-
 
 ## License:
 

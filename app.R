@@ -66,7 +66,7 @@ head(crash.data)
 #   resolutions = 2^(16:7))
 # m <- leaflet(data = head(crash.data, 500), options = leafletOptions(crs = epsg8059)) %>%
 #   # addTiles() %>%
-#   setView(138.592609, -34.912760,  zoom = 12) %>%
+#   setView(138.592609, -34.912760,  zoom = 12) %>%j
 #   addCircleMarkers(~ACCLOC_X, ~ACCLOC_X)
 # m
 coordinates(crash.data) = c("ACCLOC_X", "ACCLOC_Y")
@@ -96,6 +96,7 @@ crash.dt <- as.data.table(read.csv("data/crashpoints.csv",
                                                   "numeric", "numeric",
                                                   "character",
                                                   "numeric", "numeric")))
+crash.dt2 <- as.data.table(crash.data)
 ## read suburbs bounding box data
 suburbs.bb <- as.data.table(read.csv("data/suburbs/suburbsbb.csv",
                                      colClasses = c("integer",
@@ -108,7 +109,11 @@ suburbs.bb <- as.data.table(read.csv("data/suburbs/suburbsbb.csv",
 pallet <- colorFactor(c("gray32", "dodgerblue4",  "slateblue4",
                         "purple", "firebrick1"),
                       domain = c(0, 1, 2, 3, 10))
-
+#ALLOCATE CHOICES
+# YEARS
+choicesyears <- c(2012L:2021L)
+names(choicesyears) <- as.character(choicesyears)
+# 
 ui <- bootstrapPage(
   tags$head(
     includeCSS("styles2.css")
@@ -117,7 +122,8 @@ ui <- bootstrapPage(
              ),
   leafletOutput("map", width = "100%", height = "100%"),
   absolutePanel(id = "controls", class = "panel panel-default",
-                top = 55, right = "auto", left = 20, bottom = "auto",
+                top = 55, right = "auto",
+                left = 20, bottom = "auto",
                 width = 450, height = "auto",
                 fixed = FALSE, draggable = TRUE,
                 h3("Filter data"),
@@ -129,12 +135,16 @@ ui <- bootstrapPage(
                                                  paste(suburbs.bb$suburb,
                                                        suburbs.bb$postcode))
                                         ))),
-                selectInput("LCO_NIGHT",
-                            label = "Time of incident:",
-                            choices = c("Both days and nights" = 3,
-                                        "Days only" = 0,
-                                        "Nights only" = 1),
-                            selected = 3),
+                # selectInput("LCO_NIGHT",
+                #             label = "Time of incident:",
+                #             choices = c("Both days and nights" = 3,
+                #                         "Days only" = 0,
+                #                         "Nights only" = 1),
+                #             selected = 3),
+                selectInput("Year",
+                            label = "Select year:",
+                            choices = choicesyears,
+                            selected = 2021),
                 # p("Notes:"),
                 includeHTML("note.html")
   )
