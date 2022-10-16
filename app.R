@@ -79,7 +79,11 @@ crash.data$lon <- crash.data@coords[,1]
 crash.data$lat <- crash.data@coords[,2]
 # plot(head(crash.data,500)) #QUICK PLOT
 # mapview(head(crash.data,500))
-
+# EXPORT DATA SETS
+# 1. crash
+# 2. units
+# 3. casualty
+write.csv(crash.data, "crash_data.csv", row.names = FALSE)
 #NOW LEAFLET
 m <- leaflet(data = crash.data) %>%
   addTiles() %>%
