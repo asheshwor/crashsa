@@ -53,6 +53,11 @@ crash.data <- data.frame(do.call("rbind",
                                            function(xfile) {
                                              read.csv(xfile)
                                            })))
+#REPLACE DOTS IN VARIABLE NAMES WITH UNDERSCORES
+names(casualty.data) <- gsub("[.]", "_", names(casualty.data))
+names(units.data) <- gsub("[.]", "_", names(units.data))
+names(crash.data) <- gsub("[.]", "_", names(crash.data))
+
 crash.data <- crash.data %>%
   filter(!is.na(ACCLOC_X)) %>% 
   mutate(UNIQUE_LOC = as.character(UNIQUE_LOC))
@@ -84,6 +89,13 @@ crash.data$lat <- crash.data@coords[,2]
 # 2. units
 # 3. casualty
 write.csv(crash.data, "crash_data.csv", row.names = FALSE)
+write.csv(units.data, "units_data.csv", row.names = FALSE)
+write.csv(casualty.data, "casualty_data.csv", row.names = FALSE)
+#EXPORT TO RDS
+saveRDS(crash.data, "crash_data.RDS")
+saveRDS(units.data, "units_data.RDS")
+saveRDS(casualty.data, "casualty_data.RDS")
+
 #NOW LEAFLET
 m <- leaflet(data = crash.data) %>%
   addTiles() %>%
